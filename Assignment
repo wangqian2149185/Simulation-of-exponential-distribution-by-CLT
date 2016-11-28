@@ -2,7 +2,9 @@
 title: "Statistical Inference Course Project"
 author: "Qian Wang"
 date: "November 28, 2016"
-output: html_document
+output:
+  md_document:
+    variant: markdown_github
 ---
 
 ```{r setup, include=FALSE}
@@ -28,6 +30,9 @@ for(i in 1:1000){exsd <- c(exsd,sd(rexp(40,.2)))}
 par(mfrow=c(1,2))
 hist(exmn)
 hist(exsd)
+library(knitr)
+setwd("~/Documents/Coursera_6_statisticInference/week4")
+knit2html("assignment.md")
 ```
 
 
