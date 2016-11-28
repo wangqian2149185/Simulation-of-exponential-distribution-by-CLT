@@ -1,0 +1,2 @@
+# Simulation-of-exponential-distribution-by-CLT
+In this project the author will investigate the exponential distribution in R and compare it with the Central Limit Theorem. The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. Set lambda = 0.2 for all of the simulations. The author will investigate the distribution of averages of 40 exponentials with a thousand simulations.
