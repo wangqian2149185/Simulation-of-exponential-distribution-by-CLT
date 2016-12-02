@@ -69,7 +69,6 @@ library(ggplot2)
 qplot(factor(dose),len,data = ToothGrowth, col=supp, geom = "boxplot", main = "Summary of the ToothGrowht case")+xlab("dose")
 ```
 
-Comparison between two supp:
 First of all, the datasets will be separated to several subgroups based on supplement types and dosages.
 ```{r}
 library(dplyr)
@@ -77,10 +76,55 @@ vc0.5 <- ToothGrowth %>% filter(supp=="VC"&dose==0.5)
 vc1.0 <- ToothGrowth %>% filter(supp=="VC"&dose==1.0)
 vc2.0 <- ToothGrowth %>% filter(supp=="VC"&dose==2.0)
 oj0.5 <- ToothGrowth %>% filter(supp=="OJ"&dose==0.5)
-oj0.5 <- ToothGrowth %>% filter(supp=="OJ"&dose==1.0)
-oj0.5 <- ToothGrowth %>% filter(supp=="OJ"&dose==2.0)
+oj1.0 <- ToothGrowth %>% filter(supp=="OJ"&dose==1.0)
+oj2.0 <- ToothGrowth %>% filter(supp=="OJ"&dose==2.0)
 ```
 
+```{r}
+vc0.5_1.0<-t.test(vc0.5$len,vc1.0$len,alternative = "two.sided", var.equal = TRUE)
+vc1.0_2.0<-t.test(vc1.0$len,vc2.0$len,alternative = "two.sided", var.equal = TRUE)
+oj0.5_1.0<-t.test(oj0.5$len,oj1.0$len,alternative = "two.sided", var.equal = TRUE)
+oj1.0_2.0<-t.test(oj1.0$len,oj2.0$len,alternative = "two.sided", var.equal = TRUE)
+vc_oj0.5<-t.test(vc0.5$len,oj0.5$len,alternative = "two.sided", var.equal = TRUE)
+vc_oj1.0<-t.test(vc1.0$len,oj1.0$len,alternative = "two.sided", var.equal = TRUE)
+vc_oj2.0<-t.test(vc2.0$len,oj2.0$len,alternative = "two.sided", var.equal = TRUE)
+```
+
+Comparison of the supp at the same dose level as below:
+```{r}
+vc_oj0.5$conf.
+vc_oj0.5$p.
+vc_oj1.0$conf.
+vc_oj1.0$p.
+vc_oj2.0$conf.
+vc_oj2.0$p.
+```
+
+For the 0.5 dosage comparison, we can observe that the p-value is smaller than 0.05 and the conf. does not contain the 0. So the null hypothesis that the two supp at 0.5 dose level will be rejected.
+For the 1.0 dosage comparison, we can observe that the p-value is smaller than 0.05 and the conf. does not contain the 0. So the null hypothesis that the two supp at 1.0 dose level will be rejected.
+For the 2.0 dosage comparison, we can observe that the p-value is bigger than 0.05 and the conf. contains the 0. So the null hypothesis that the two supp at 2.0 dose level will be rejected.
+
+Comparison of the dose at the same supp type as below:
+```{r}
+vc0.5_1.0$conf.
+vc0.5_1.0$p.
+vc1.0_2.0$conf.
+vc1.0_2.0$p.
+oj0.5_1.0$conf.
+oj0.5_1.0$p.
+oj1.0_2.0$conf.
+oj1.0_2.0$p.
+```
+
+For the VC supp between 0.5 and 1.0 dosage, we can observe that the p-value is smaller than 0.05 and the conf. does not contain the 0. So the null hypothesis that the two dossages between 0.5 and 1.0 dosages level are the same will be rejected.
+For the same VC supp between 1.0 and 2.0, the null hypothesis will be rejected as well.
+
+For the OJ supp between 0.5 and 1.0 dosage, we can observe that the p-value is smaller than 0.05 and the conf. does not contain the 0. So the null hypothesis that the two dossages between 0.5 and 1.0 dosages level are the same will be rejected.
+For the same OJ supp between 1.0 and 2.0, the null hypothesis will be rejected as well.
+
+## Conclusion
+For each type of supp, the more dose it was given, the longer teeth it will have. 2.0 is the highest one during these experiments.
+Between the two type of supps (OJ and VC), the OJ impacts more than the VC ones. But once the dosage was 2.0, there is no significant differences of types between these supps.
 
 
 
