@@ -1,0 +1,66 @@
+---
+title: "Statistical Inference Course Project"
+author: "Qian Wang"
+date: "November 28, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Part 1
+The topic of this project:
+In this project the author will investigate the exponential distribution in R and compare it with the Central Limit Theorem. The exponential distribution can be simulated in R with rexp(n, lambda) where lambda is the rate parameter. The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. Set lambda = 0.2 for all of the simulations. The author will investigate the distribution of averages of 40 exponentials with a thousand simulations.
+
+The histogram of the random expponentail is shown below:
+```{r echo=TRUE}
+set.seed(1234)
+hist(rexp(1000))
+```
+
+The distribution of the average and standard deviation of the 40 exponentials with lambda 0.2 is:
+```{r echo=T}
+set.seed(1234)
+exmn=NULL
+exvr=NULL
+for(i in 1:1000){exmn <- c(exmn,mean(rexp(40,.2)))}
+for(i in 1:1000){exvr <- c(exvr,sd(rexp(40,.2))^2)}
+```
+
+The sample mean is:
+```{r echo=T}
+mean(exmn) 
+```
+Compared to the theoretical mean "1/0.2 = 5", it is quite close.
+
+The sample variance is:
+```{r echo=T}
+mean(exvr)
+```
+Compared to the theoretical variance "(1/0.2)^2 = 25", it is quite close.
+
+```{r echo=T}
+par(mfrow=c(1,2))
+hist(exmn)
+hist(exvr)
+```
+
+```{r echo=T}
+Z_mn <- (exmn-mean(exmn))/sd(exmn)
+quantile(Z_mn,c(.5,.95,.975))
+```
+
+According to the histograms of the sample mean plot, the shape is bell-curve like. And by calculating the two-sided median, 90% and 95% percentile, we obtained that the quantile is -0.05, 1.67 and 2.01, respectively, which is close to the ideal normal quantile 0, 1.65 and 1.96. So this proves that the distribution is nomral.
+
+```{r echo=T}
+Z_vr <- (exvr-mean(exvr))/sd(exvr)
+quantile(Z_vr,c(.5,.95,.975))
+```
+
+However, based on the histogram of the sample var plot, the shape of the curve is not perfect bell matched. By comparing with the calculated the quantiles, it showed that the quantile (-0.200,, 1.81 and 2.22) is not quite close to the ideal ones (0, 1.65 and 1.96). And this is not improved by increasing the sample size. So, the var histogram does not fit the normal curve quite well. But, compared with the distribution of the large collection of the random exponentials, it intends to the normal-like distribution, which works on the CLT.
+
+### Conclusion
+According to the paragraphs above, we have proved that the distribution of the average of 40 exponential fit the normal distribution, which is evidence of the CLT.
+
+
+
