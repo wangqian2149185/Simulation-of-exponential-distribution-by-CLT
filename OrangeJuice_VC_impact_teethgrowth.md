@@ -6,7 +6,7 @@ Summary of the ToothGrowth dataset:
     qplot(factor(dose),len,data = ToothGrowth, col=supp, geom = "boxplot", 
           main = "Summary of the ToothGrowht case")+xlab("dose")
 
-![https://github.com/wangqian2149185/Simulation-of-exponential-distribution-by-CLT/blob/master/unnamed-chunk-2-1.png](Assignment_part2_files/figure-markdown_strict/unnamed-chunk-2-1.png)
+![](unnamed-chunk-2-1.png)
 
 First of all, the datasets will be separated to several subgroups based
 on supplement types and dosages.
